@@ -20,7 +20,6 @@ import { Submit } from '../from/Submit'
 import WritersModal from '../modals/WritersModal'
 import CastModal from '../modals/CastModal'
 import GenresModal from '../modals/GenresModal'
-import { TagsInput } from './TagsInput'
 import { FaClosedCaptioning } from 'react-icons/fa'
 import { BsDoorClosed } from 'react-icons/bs'
 import { AiOutlineClose } from 'react-icons/ai'
@@ -28,7 +27,6 @@ import { AiOutlineClose } from 'react-icons/ai'
 const defaultMovieInfo = {
   title: '',
   storyLine: '',
-  tags: [],
   cast: [],
   director: {},
   writers: [],
@@ -61,14 +59,13 @@ export default function MovieForm({
     if (error) return updateNotification('error', error)
 
     // cast, tags, genres, writers
-    const { tags, genres, cast, writers, director, poster } = movieInfo
+    const { genres, cast, writers, director, poster } = movieInfo
 
     const formData = new FormData()
     const finalMovieInfo = {
       ...movieInfo,
     }
 
-    finalMovieInfo.tags = JSON.stringify(tags)
     finalMovieInfo.genres = JSON.stringify(genres)
 
     // {
@@ -113,10 +110,6 @@ export default function MovieForm({
     }
 
     setMovieInfo({ ...movieInfo, [name]: value })
-  }
-
-  const updateTags = (tags) => {
-    setMovieInfo({ ...movieInfo, tags })
   }
 
   const updateDirector = (profile) => {
@@ -200,7 +193,7 @@ export default function MovieForm({
     storyLine,
     writers,
     cast,
-    tags,
+
     releseDate,
     genres,
     type,
@@ -236,11 +229,6 @@ export default function MovieForm({
               className={commonInputClasses + ' border-b-2 resize-none h-24'}
               placeholder="Movie storyline..."
             ></textarea>
-          </div>
-
-          <div>
-            <Label htmlFor="tags">Tags</Label>
-            <TagsInput value={tags} name="tags" onChange={updateTags} />
           </div>
 
           <DirectorSelector onSelect={updateDirector} />
